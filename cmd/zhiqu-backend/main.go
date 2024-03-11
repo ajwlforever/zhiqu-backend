@@ -60,7 +60,7 @@ func main() {
 		"span.id", tracing.SpanID(),
 	)
 	fmt.Println(os.Getwd())
-	flagconf = "configs"
+	// flagconf = "configs"
 	fmt.Println(flagconf)
 	c := config.New(
 		config.WithSource(

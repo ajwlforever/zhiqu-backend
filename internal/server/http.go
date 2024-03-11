@@ -3,6 +3,7 @@ package server
 import (
 	v1 "zhiqu-backend/api/helloworld/v1"
 	"zhiqu-backend/internal/conf"
+
 	"zhiqu-backend/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -27,6 +28,19 @@ func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
+	addRouter(srv)
 	v1.RegisterGreeterHTTPServer(srv, greeter)
 	return srv
+}
+
+func addRouter(srv *http.Server) {
+	r := srv.Route("/v1")
+
+	//
+	r.GET("/hello", helloworld)
+}
+
+func helloworld(ctx http.Context) error {
+	ctx.Returns("wocaac", nil)
+	return ctx.JSON(200, "wocaac")
 }
